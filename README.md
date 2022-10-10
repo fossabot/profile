@@ -24,6 +24,13 @@ rule-providers:
 DOMAIN-SET,https://github.com/srk24/profile/raw/master/surge/list/reject.list,REJECT
 ```
 
+#### Surge Domain-set 配置方式
+
+```
+[filter_remote]
+https://github.com/srk24/profile/raw/master/quanx/list/reject.list, tag=reject, update-interval=172800, opt-parser=false, inserted-resource=true, enabled=true
+```
+
 ## 致谢
 
 - [@dler-io/Rules](https://github.com/dler-io/Rules)
