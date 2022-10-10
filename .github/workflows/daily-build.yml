@@ -1,0 +1,38 @@
+name: Daily Build
+
+on:
+  schedule:
+    - cron: '30 6 * * *'
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: '1.19'
+
+      - name: Build
+        run: go build -o ./generator
+
+      - name: Generate Domain-Set file
+        run: ./generator
+
+      - name: Set env variables
+        run: |
+          echo "GEN_MSG=$(date +%Y%m%d)" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Commit & Push
+        run: |
+          git init
+          git config --local user.name "${{ github.actor }}"
+          git config --local user.email "${{ github.actor }}@users.noreply.github.com"
+          git add .
+          git commit -m "${{ env.GEN_MSG }}"
+          git push -f -u origin master

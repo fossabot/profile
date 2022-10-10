@@ -1,0 +1,21 @@
+#!name= Block Bilibili Advertising
+#!desc= 去除B站客户端启动广告、首页流广告，调整其UI
+#!system=ios
+# Special thanks to @onewayticket255 @blackmatrix7 @DivineEngine
+
+[Rule]
+URL-REGEX,^https://app\.bilibili\.com/x/v2/(search/(defaultwords|square)),REJECT
+
+[URL Rewrite]
+# bstar intl
+(^https?:\/\/app\.biliintl\.com\/(x\/)?(intl|dm|reply|history|v\d\/(fav|msgfeed)).+?)(&s_locale=zh-Hans_[A-Z]{2})(.+?)(&sim_code=\d+)(.+) $1&s_locale=zh-Hans_PH$6&sim_code=51503$8 header
+(^https?:\/\/passport\.biliintl\.com\/x\/intl\/passport-login\/.+)(&s_locale=zh-Hans_[A-Z]{2})(.+)(&sim_code=\d+)(.+) $1&s_locale=zh-Hans_PH$35&sim_code=51503$5 header
+
+[MITM]
+hostname = %APPEND% app.bilibili.com, app.biliintl.com, passport.biliintl.com
+
+[Script]
+bstar_login = type=http-request,pattern=^https?:\/\/passport\.biliintl\.com\/x\/intl\/passport-login\/(sms\/send|reg\/sms|oauth2\/access_token|login\/sms),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Rewrite/bstar.js,script-update-interval=0
+bstar_play = type=http-request,pattern=^https?:\/\/app\.biliintl\.com\/(intl\/gateway\/v\d\/app\/data\/report\/heartbeat\/mobile|x\/(history|reply)/v\d/add),requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/DivineEngine/Profiles/master/Surge/Rewrite/bstar.js,script-update-interval=0
+bilibili splash = type=http-response,pattern=^https?://app\.bilibili\.com/x/v2/splash/list,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/srk24/profile/master/js/bilibili_splash.js,script-update-interval=0
+bilibili others = type=http-response,pattern=^https?://app\.bilibili\.com/x/((resource/show/tab/v2)|(v2/((feed/index)|(account/mine))))\?access_key,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/srk24/profile/master/js/bilibili_all.js,script-update-interval=0
