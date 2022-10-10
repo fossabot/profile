@@ -24,7 +24,7 @@ rule-providers:
 DOMAIN-SET,https://github.com/srk24/profile/raw/master/surge/list/reject.list,REJECT
 ```
 
-#### Surge Domain-set 配置方式
+#### Quan X 配置方式
 
 ```
 [filter_remote]
