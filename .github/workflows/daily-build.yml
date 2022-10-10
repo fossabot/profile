@@ -3,6 +3,9 @@ name: Daily Build
 on:
   schedule:
     - cron: '30 6 * * *'
+  push:
+    branches:
+      - master
 
 jobs:
   build:
