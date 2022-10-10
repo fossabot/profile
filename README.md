@@ -13,7 +13,7 @@ rule-providers:
   reject:
     type: http
     behavior: domain
-    url: "https://github.com/srk24/profile/raw/master/clash/provider/reject.yaml"
+    url: https://github.com/srk24/profile/raw/master/clash/provider/reject.yaml
     path: ./ruleset/reject.yaml
     interval: 86400
 ```
