@@ -2,12 +2,13 @@ package main
 
 import (
 	"bufio"
-	"gopkg.in/yaml.v3"
 	"io"
 	"log"
 	"net/http"
 	"os"
 	"strings"
+
+	"gopkg.in/yaml.v3"
 )
 
 type Domain struct {
@@ -43,7 +44,7 @@ func main() {
 
 	genSurgeFile(domain, domainSuffix)
 	genClashFile(domain, domainSuffix)
-
+	genQuanXFile(domain, domainSuffix)
 }
 
 func genSurgeFile(domain, domainSuffix []string) {
@@ -80,6 +81,26 @@ func genClashFile(domain, domainSuffix []string) {
 	p := Domain{Payload: all}
 	out, _ := yaml.Marshal(&p)
 	_ = os.WriteFile(f.Name(), out, 0777)
+
+	defer func(f *os.File) {
+		err := f.Close()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}(f)
+}
+
+func genQuanXFile(domain, domainSuffix []string) {
+	_ = os.MkdirAll("./quanx/list/", 0777)
+	f, _ := os.Create("./quanx/list/reject.list")
+
+	for _, s := range domain {
+		_, _ = f.WriteString("host, " + s + ", reject\n")
+	}
+
+	for _, suffix := range domainSuffix {
+		_, _ = f.WriteString("host-suffix, " + suffix + ", reject\n")
+	}
 
 	defer func(f *os.File) {
 		err := f.Close()

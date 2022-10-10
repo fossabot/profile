@@ -1,6 +1,6 @@
 # 简介
 
-本项目的配置适用于 [**Clash Premium 内核**](https://github.com/Dreamacro/clash/releases/tag/premium)、 [**Surge**](https://nssurge.com/)、 [**Quanmutumlt X**](https://apps.apple.com/us/app/quantumult-x/id1443988620) 
+本项目的配置适用于 [**Clash Premium**](https://github.com/Dreamacro/clash/releases/tag/premium)、 [**Surge**](https://nssurge.com/)、 [**Quanmutumlt X**](https://apps.apple.com/us/app/quantumult-x/id1443988620) 
 
 ## 说明
 
